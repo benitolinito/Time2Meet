@@ -1,24 +1,30 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './styles/app.scss';
+
+import LandingHeader from './components/LandingHeader';
+import ModeSelection from './components/ModeSelection';
+
+
 
 function App() {
+
+
+  const handleHost = () => { /* logic, this is where we gonna implement creating a room using db */};
+  const handleJoin = () => { /* logic */};
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="landing">
+      <header className="landing-header">
+        <LandingHeader />
       </header>
+
+      <div className='landing-body'>
+        <div className='mode-selection'>
+          <ModeSelection onHost={handleHost} onJoin={handleJoin}/>
+      
+        </div>
+      </div>
     </div>
   );
 }
