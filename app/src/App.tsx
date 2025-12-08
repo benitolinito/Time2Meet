@@ -2,19 +2,22 @@ import React from 'react';
 // import logo from './logo.svg';
 import './styles/app.scss';
 
-// import { initializeApp } from "firebase/app"
-// import { getFirestore } from "firebase/firestore"
-
 import LandingHeader from './components/LandingHeader';
 import ModeSelection from './components/ModeSelection';
 
+import { db } from './firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
 
 function App() {
-  const handleHost = () => { 
-
-  
-  
+  const handleHost = async () => { 
+    const roomReference = await addDoc(collection(db, 'rooms'), {
+      createdAt: serverTimestamp(),
+      status: 'open',
+    });
+    const roomId = roomReference.id;
   };
+
   const handleJoin = () => { /* logic */};
 
   return (
