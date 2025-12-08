@@ -2,13 +2,14 @@ import React from 'react';
 import logo from './logo.svg';
 import './styles/app.scss';
 
+import { initializeApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore"
+
 import LandingHeader from './components/LandingHeader';
 import ModeSelection from './components/ModeSelection';
 
 
 function App() {
-
-
   const handleHost = () => { 
 
   
