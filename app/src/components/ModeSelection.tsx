@@ -1,6 +1,5 @@
 import React from "react";
 
-
 type ModeSelectionProps = {
   onHost: () => void;
   onJoin: () => void;

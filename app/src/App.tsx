@@ -6,11 +6,14 @@ import LandingHeader from './components/LandingHeader';
 import ModeSelection from './components/ModeSelection';
 
 
-
 function App() {
 
 
-  const handleHost = () => { /* logic, this is where we gonna implement creating a room using db */};
+  const handleHost = () => { 
+
+  
+  
+  };
   const handleJoin = () => { /* logic */};
 
   return (
