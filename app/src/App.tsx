@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 
 // import logo from './logo.svg';
 import './styles/app.scss';
@@ -10,6 +11,20 @@ import { db } from './firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 
+//different pages
+function LandingPage() {
+  return <div>Landing</div>
+}
+
+function HostingPage() {
+  return <div>Landing</div>
+
+}
+
+function JoinedPage() {
+  return <div>Landing</div>
+}
+
 //user authentication
 const auth = getAuth();
 
@@ -19,7 +34,23 @@ async function authenticateAsAnonymous() {
   }
 }
 
+
+//main app component
 function App() {
+    <BrowserRouter>
+      {/* Navigation */}
+      <nav>
+        <Link to="/">Landing</Link> |{" "}
+      </nav>
+
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/hostingPage" element={<HostingPage />} />
+        <Route path="/joinedPage" element={<JoinedPage />} />
+      </Routes>
+    </BrowserRouter>
+
   const handleHost = async () => {
     // host logic
     await authenticateAsAnonymous();
@@ -32,6 +63,7 @@ function App() {
     const roomId = roomReference.id; // we'll put this in the url later somehow and this is how users can join
 
     // page update logic
+    // useNavigate()
   };
 
   const handleJoin = () => { /* logic */};
