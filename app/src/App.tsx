@@ -37,13 +37,14 @@ async function authenticateAsAnonymous() {
 
 //main app component
 function App() {
+    const navigate = useNavigate();
+
+    //page router configuration
     <BrowserRouter>
-      {/* Navigation */}
       <nav>
         <Link to="/">Landing</Link> |{" "}
       </nav>
 
-      {/* Routes */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/hostingPage" element={<HostingPage />} />
@@ -63,10 +64,14 @@ function App() {
     const roomId = roomReference.id; // we'll put this in the url later somehow and this is how users can join
 
     // page update logic
-    // useNavigate()
+    navigate(`/join/${roomId}`);
   };
 
-  const handleJoin = () => { /* logic */};
+  const handleJoin = async (roomId: string) => {
+    // join logic
+    await authenticateAsAnonymous();
+    navigate(`/join/${roomId}`);
+  };
 
   return (
     <div className="landing">
