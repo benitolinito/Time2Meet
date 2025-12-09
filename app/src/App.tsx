@@ -13,7 +13,7 @@ function App() {
   const handleHost = async () => { 
     const roomReference = await addDoc(collection(db, 'rooms'), {
       createdAt: serverTimestamp(),
-      status: 'open',
+      open: 'True',
     });
     const roomId = roomReference.id;
   };
