@@ -1,28 +1,40 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link, useParams, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 // import logo from './logo.svg';
 import './styles/app.scss';
 
 import LandingHeader from './components/LandingHeader';
 import ModeSelection from './components/ModeSelection';
+import HostingPage from './components/HostingPage';
 
 import { db } from './firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 
-//different pages
-function LandingPage() {
-  return <div>Landing</div>
-}
+type LandingPageProps = {
+  onHost: () => void;
+  onJoin: (roomId: string) => void;
+};
 
-function HostingPage() {
-  return <div>Landing</div>
+function LandingPage({ onHost, onJoin }: LandingPageProps) {
+  return (
+    <div className="landing">
+      <header className="landing-header">
+        <LandingHeader />
+      </header>
 
+      <div className="landing-body">
+        <div className="mode-selection">
+          <ModeSelection onHost={onHost} onJoin={onJoin} />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function JoinedPage() {
-  return <div>Landing</div>
+  return <div>Joined</div>;
 }
 
 //user authentication
@@ -37,20 +49,7 @@ async function authenticateAsAnonymous() {
 
 //main app component
 function App() {
-    const navigate = useNavigate();
-
-    //page router configuration
-    <BrowserRouter>
-      <nav>
-        <Link to="/">Landing</Link> |{" "}
-      </nav>
-
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/hostingPage" element={<HostingPage />} />
-        <Route path="/joinedPage" element={<JoinedPage />} />
-      </Routes>
-    </BrowserRouter>
+  const navigate = useNavigate();
 
   const handleHost = async () => {
     // host logic
@@ -64,7 +63,7 @@ function App() {
     const roomId = roomReference.id; // we'll put this in the url later somehow and this is how users can join
 
     // page update logic
-    navigate(`/join/${roomId}`);
+    navigate('/hostingPage', { state: { roomId } });
   };
 
   const handleJoin = async (roomId: string) => {
@@ -74,18 +73,14 @@ function App() {
   };
 
   return (
-    <div className="landing">
-      <header className="landing-header">
-        <LandingHeader />
-      </header>
-
-      <div className='landing-body'>
-        <div className='mode-selection'>
-          <ModeSelection onHost={handleHost} onJoin={handleJoin}/>
-      
-        </div>
-      </div>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={<LandingPage onHost={handleHost} onJoin={handleJoin} />}
+      />
+      <Route path="/hostingPage" element={<HostingPage />} />
+      <Route path="/joinedPage" element={<JoinedPage />} />
+    </Routes>
   );
 }
 
